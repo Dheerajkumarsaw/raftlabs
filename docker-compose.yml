@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: my-postgres
+    environment:
+      POSTGRES_DB: raftlabs
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_data:/data
+
+  redis:
+    container_name: cache
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+
+
+  adminer:
+    image: adminer
+    restart: always
+    ports: 
+      - 8080:8080
+
+
+volumes:
+  redis:
+    driver: local
+  pg_data:
+    driver: local
